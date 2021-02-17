@@ -18,21 +18,29 @@
     "sass": "^1.29.0",
     "sass-loader": "^10.1.0"
   },
-  "author": {
-    "name": "Ren Rizzolo",
-    "email": "info@renrizzolo.com",
-    "url": "https://github.com/renrizzolo"
-  },
+  "author": "Ren Rizzolo <info@renrizzolo.com> (https://github.com/renrizzolo)",
   "maintainers": [
-    {
-      "name": "Ren Rizzolo",
-      "email": "info@renrizzolo.com",
-      "url": "https://github.com/renrizzolo"
-    }
+    "Ren Rizzolo <info@renrizzolo.com> (https://github.com/renrizzolo)"
   ],
   "engines": {
     "node": ">=10.0.0",
     "npm": ">=6.0.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/renrizzolo/strapi-plugin-gutenberg-editor.git"
+  },
+  "keywords": [
+    "Strapi",
+    "Gutenberg"
+  ],
+  "bugs": {
+    "url": "https://github.com/renrizzolo/strapi-plugin-gutenberg-editor/issues"
+  },
+  "homepage": "https://github.com/renrizzolo/strapi-plugin-gutenberg-editor#readme"
 }
