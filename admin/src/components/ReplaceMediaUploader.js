@@ -2,8 +2,12 @@ import React from "react";
 import { useState } from "@wordpress/element";
 import MediaLib from "./MediaLib";
 import { Button } from "@wordpress/components";
+import { prefixFileUrlWithBackendUrl } from "strapi-helper-plugin";
+
 const ALLOWED_MEDIA_TYPES = ["image"];
+
 window.wp = {};
+
 const ReplaceWPMediaUploader = ({
   onSelect,
   render,
@@ -14,17 +18,19 @@ const ReplaceWPMediaUploader = ({
   multiple,
 }) => {
   const [mediaLibOpen, toggleMediaLib] = useState(false);
-  console.log(
-    "media upload props ",
-    multiple,
-    allowedTypes,
-    addToGallery,
-    value
-  );
+  const addBackendURLToMedia = (data) => {
+    return data.map((data) => ({
+      ...data,
+      url: prefixFileUrlWithBackendUrl(data.url),
+    }));
+  };
   const onChange = (data) => {
-    console.log("MyMediaUploader onchange", data);
     console.log(onSelect);
-    data && data.length > 0 && onSelect(gallery || multiple ? data : data[0]);
+    const media = addBackendURLToMedia(data);
+    console.log("MyMediaUploader onchange media", media);
+    media &&
+      media.length > 0 &&
+      onSelect(gallery || multiple ? media : media[0]);
   };
   return (
     <>
