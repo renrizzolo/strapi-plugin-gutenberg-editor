@@ -1,0 +1,111 @@
+@import "~@wordpress/base-styles/colors";
+@import "~@wordpress/base-styles/variables";
+@import "~@wordpress/base-styles/mixins";
+@import "~@wordpress/base-styles/breakpoints";
+@import "~@wordpress/base-styles/animations";
+@import "~@wordpress/base-styles/z-index";
+
+
+@import "./reset";
+@import "./editor-styles";
+@import "./gutenberg-styles";
+
+$menu-offset: 60px;
+
+.gutenberg-editor-plugin__default {
+	position: relative;
+	padding-bottom: 27px;
+}
+// make wp modal play nice with strapi upload media modal
+.components-modal__screen-overlay {
+	z-index: 1050;
+}
+// modal wrapper 
+.components-modal__frame {
+	top: 30px;
+	right: 30px;
+	bottom: 30px;
+	left: 30px;
+	transform: none;
+	max-height: 100%;
+}
+
+// main editor window
+.gutenberg-editor {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: white;
+	z-index: 9;
+		
+  min-height: 80vh;
+	// @include break-small() {
+  //   width: calc(100% - #{$sidebar-width});
+  //     min-height: 50vh;
+	// }
+	padding-top: $menu-offset;
+	margin-top: $menu-offset;
+
+	img {
+		max-width: 100%;
+		height: auto;
+	}
+
+	iframe {
+		width: 100%;
+	}
+
+	.components-navigate-regions {
+		height: 100%;
+	}
+}
+.editor-styles-wrapper {
+	@include break-small() {
+		width: calc(100% - #{$sidebar-width});
+	}
+}
+// override replace media popover being hidden when a modal is open
+.modal-open .block-editor-media-replace-flow__options {
+	display: block;
+}
+.gutenberg-editor__sidebar {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: $sidebar-width;
+	border-left: $border-width solid $gray-300;
+	height: auto;
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
+
+	// Temporarily disable the sidebar on mobile
+	display: none;
+	@include break-small() {
+		display: block;
+	}
+}
+// fix inspector to top
+.block-editor-block-inspector {
+		position: fixed;
+    right: 40px;
+    width: $sidebar-width;
+}
+
+/**
+ * Animations
+ */
+
+// These keyframes should not be part of the _animations.scss mixins file.
+// Because keyframe animations can't be defined as mixins properly, they are duplicated.
+// Since hey are intended only for the editor, we add them here instead.
+@keyframes edit-post__fade-in-animation {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}

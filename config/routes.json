@@ -1,0 +1,12 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/",
+      "handler": "gutenberg-editor.index",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
