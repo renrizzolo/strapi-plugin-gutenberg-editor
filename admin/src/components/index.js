@@ -27,11 +27,14 @@ import { addFilter } from "@wordpress/hooks";
 import ReplaceWPMediaUploader from "./ReplaceMediaUploader";
 
 import MediaLib from "./MediaLib";
-import "../css/style.scss";
+
+// temp css file until plugin has sass webpack customization
+import "../css/main.css";
+//import "../css/style.scss";
 
 const BLOCKS_FIELD = "gutenberg_blocks";
 
-function WysiwygWithErrors({
+function GutenbergWysiwygWithErrors({
   autoFocus,
   className,
   deactivateErrorHighlight,
@@ -263,7 +266,7 @@ function WysiwygWithErrors({
             </div>
           </Modal>
         ) : (
-          <div class="gutenberg-editor-plugin__default">
+          <div className="gutenberg-editor-plugin__default">
             <Label htmlFor={name}>{label}</Label>
 
             <Button
@@ -286,4 +289,4 @@ function WysiwygWithErrors({
   );
 }
 
-export default WysiwygWithErrors;
+export default GutenbergWysiwygWithErrors;

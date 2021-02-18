@@ -1,6 +1,6 @@
 import pluginPkg from "../../package.json";
 import pluginId from "./pluginId";
-import WysiwygWithErrors from "./components";
+import GutenbergWysiwygWithErrors from "./components";
 
 export default (strapi) => {
   const pluginDescription =
@@ -24,6 +24,9 @@ export default (strapi) => {
     settings: null,
     trads: {},
   };
-  strapi.registerField({ type: "wysiwyg", Component: WysiwygWithErrors });
+  strapi.registerField({
+    type: "wysiwyg",
+    Component: GutenbergWysiwygWithErrors,
+  });
   return strapi.registerPlugin(plugin);
 };
