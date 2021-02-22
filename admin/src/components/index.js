@@ -16,7 +16,7 @@ import {
   BlockNavigationDropdown,
 } from "@wordpress/block-editor";
 
-import { TableOfContents } from "@wordpress/editor";
+// import { TableOfContents } from "@wordpress/editor";
 
 import {
   ToolbarItem,
@@ -48,13 +48,13 @@ function GutenbergBlockToolbar() {
       aria-label={"toolbarAriaLabel"}
     >
       <div className="edit-post-header-toolbar__left">
-        <ToolbarItem
+        {/* <ToolbarItem
           as={TableOfContents}
           hasOutlineItemsDisabled={false}
           repositionDropdown={false}
           showTooltip={true}
           isTertiary={false}
-        />
+        /> */}
         <ToolbarItem
           as={BlockNavigationDropdown}
           isDisabled={false}
