@@ -11,8 +11,15 @@ import {
   BlockInspector,
   WritingFlow,
   ObserveTyping,
+  BlockBreadcrumb,
+  NavigableToolbar,
+  BlockNavigationDropdown,
 } from "@wordpress/block-editor";
+
+import { TableOfContents } from "@wordpress/editor";
+
 import {
+  ToolbarItem,
   Popover,
   SlotFillProvider,
   DropZoneProvider,
@@ -34,6 +41,30 @@ import "../css/main.css";
 
 const BLOCKS_FIELD = "gutenberg_blocks";
 
+function GutenbergBlockToolbar() {
+  return (
+    <NavigableToolbar
+      className="edit-post-header-toolbar"
+      aria-label={"toolbarAriaLabel"}
+    >
+      <div className="edit-post-header-toolbar__left">
+        <ToolbarItem
+          as={TableOfContents}
+          hasOutlineItemsDisabled={false}
+          repositionDropdown={false}
+          showTooltip={true}
+          isTertiary={false}
+        />
+        <ToolbarItem
+          as={BlockNavigationDropdown}
+          isDisabled={false}
+          showTooltip={true}
+          isTertiary={false}
+        />
+      </div>
+    </NavigableToolbar>
+  );
+}
 function GutenbergWysiwygWithErrors({
   autoFocus,
   className,
@@ -213,40 +244,41 @@ function GutenbergWysiwygWithErrors({
         const hasError = error && error !== null;
 
         return isVisible ? (
-          <Modal
-            shouldCloseOnClickOutside={false}
-            onRequestClose={() => setIsVisible(false)}
+          <BlockEditorProvider
+            value={blocks.length > 0 ? blocks : blocksFromValue}
+            onInput={updateBlocks}
+            onChange={saveHTML}
+            settings={{
+              mediaLibrary: true,
+              mediaUpload: toggleMediaLib,
+            }}
           >
-            {/* media lib for 'upload' actions */}
-            <MediaLib
-              allowedTypes={
-                mediaUploadFn?.allowedTypes
-                  ? mediaUploadFn?.allowedTypes.map((type) => `${type}s`)
-                  : undefined
-              }
-              multiple={mediaUploadFn?.multiple}
-              isOpen={mediaLibOpen}
-              onToggle={() => toggleMediaLib(false)}
-              onChange={mediaUpload}
-              uploadFn={mediaUploadFn}
-            />
-            <div
-              className={`gutenberg-editor ${cn(
-                !isEmpty(className) && className
-              )} ${hasError ? "bordered" : ""}`}
-              style={style}
-            >
-              <SlotFillProvider>
-                <DropZoneProvider>
-                  <BlockEditorProvider
-                    value={blocks.length > 0 ? blocks : blocksFromValue}
-                    onInput={updateBlocks}
-                    onChange={saveHTML}
-                    settings={{
-                      mediaLibrary: true,
-                      mediaUpload: toggleMediaLib,
-                    }}
-                  >
+            <SlotFillProvider>
+              <Modal
+                shouldCloseOnClickOutside={false}
+                onRequestClose={() => setIsVisible(false)}
+                title={<GutenbergBlockToolbar />}
+              >
+                {/* media lib for 'upload' actions */}
+                <MediaLib
+                  allowedTypes={
+                    mediaUploadFn?.allowedTypes
+                      ? mediaUploadFn?.allowedTypes.map((type) => `${type}s`)
+                      : undefined
+                  }
+                  multiple={mediaUploadFn?.multiple}
+                  isOpen={mediaLibOpen}
+                  onToggle={() => toggleMediaLib(false)}
+                  onChange={mediaUpload}
+                  uploadFn={mediaUploadFn}
+                />
+                <div
+                  className={`gutenberg-editor ${cn(
+                    !isEmpty(className) && className
+                  )} ${hasError ? "bordered" : ""}`}
+                  style={style}
+                >
+                  <DropZoneProvider>
                     <div className="gutenberg-editor__sidebar">
                       <BlockInspector />
                     </div>
@@ -258,13 +290,16 @@ function GutenbergWysiwygWithErrors({
                           <BlockList />
                         </ObserveTyping>
                       </WritingFlow>
+                      <div className="edit-post-layout__footer">
+                        <BlockBreadcrumb />
+                      </div>
                     </div>
                     <Popover.Slot />
-                  </BlockEditorProvider>
-                </DropZoneProvider>
-              </SlotFillProvider>
-            </div>
-          </Modal>
+                  </DropZoneProvider>
+                </div>
+              </Modal>
+            </SlotFillProvider>
+          </BlockEditorProvider>
         ) : (
           <div className="gutenberg-editor-plugin__default">
             <Label htmlFor={name}>{label}</Label>
