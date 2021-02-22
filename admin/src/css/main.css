@@ -12188,6 +12188,17 @@ div {
   max-width: none;
 }
 
+.edit-post-header-toolbar {
+  border: 0px solid #1e1e1e;
+}
+
+.edit-post-layout__footer {
+  position: fixed;
+  bottom: 30px;
+  padding: 6px;
+  background: white;
+}
+
 .gutenberg-editor-plugin__default {
   position: relative;
   padding-bottom: 27px;
