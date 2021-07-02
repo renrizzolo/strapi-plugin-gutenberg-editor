@@ -11,7 +11,7 @@ In order to transform the blocks to/from html, the blocks JSON needs to be saved
 You must add a JSON field titled `gutenberg_blocks` to your content type.
 
 ### Usage:
-- `npm install strapi-plugin-gutenberg-editor` / `yarn add strap-plugin-gutenberg-editor`
+- `npm install strapi-plugin-gutenberg-editor` / `yarn add strapi-plugin-gutenberg-editor`
 - Run strapi build in order to build the plugin: `npm run build && npm run develop` / `yarn build && yarn develop`
 - Add a Rich Text field to your content type
 - Add a JSON field titled `gutenberg_blocks` to your content type
